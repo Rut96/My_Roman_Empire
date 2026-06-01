@@ -1,0 +1,114 @@
+.room-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  background: rgba(14, 11, 10, 0.92);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: room-fade-in 0.2s ease forwards;
+}
+
+@keyframes room-fade-in {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+.room-content {
+  position: relative;
+  background: var(--bg-room);
+  border: 1px solid var(--border);
+  border-radius: 2px;
+  width: min(90vw, 900px);
+  max-height: 88vh;
+  min-height: 0;
+  overflow-y: auto;
+  padding: 3rem 3.5rem 3.5rem;
+  animation: room-slide-up 0.3s cubic-bezier(0.25, 0.1, 0.25, 1) 0.1s both;
+  scrollbar-width: thin;
+  scrollbar-color: var(--border) transparent;
+}
+
+@keyframes room-slide-up {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.room-close {
+  position: absolute;
+  top: 1.25rem;
+  right: 1.25rem;
+  background: none;
+  border: 1px solid var(--border);
+  color: var(--text-muted);
+  font-size: 1rem;
+  width: 2rem;
+  height: 2rem;
+  cursor: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: color 0.2s, border-color 0.2s;
+}
+
+.room-close:hover {
+  color: var(--text-primary);
+  border-color: var(--warm-1);
+}
+
+.room-title {
+  font-family: var(--font-serif);
+  font-size: 2rem;
+  font-weight: 400;
+  color: var(--warm-1);
+  letter-spacing: 0.15em;
+  margin: 0 0 2rem;
+  text-transform: uppercase;
+}
+
+/* Garden room — full-bleed, no padding */
+.room-content--garden {
+  padding: 0;
+  overflow: hidden;
+  width: min(90vw, 1100px);
+  height: 88vh;
+}
+
+/* Truancy room — full-width, wider panel */
+.room-content--truancy {
+  padding: 0;
+  width: min(90vw, 1100px);
+}
+
+/* Sport room — wider for stage layout */
+.room-content--sport {
+  width: min(90vw, 1040px);
+  padding: 2rem 2.5rem 3rem;
+  overflow-x: hidden;
+}
+
+/* Museum plaque — shared style used across room components */
+.museum-plaque {
+  border: 1px solid var(--warm-1);
+  padding: 1.25rem 1.5rem;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  color: var(--text-secondary);
+  line-height: 1.8;
+  display: inline-block;
+  margin-top: 1.5rem;
+}
+
+.museum-plaque .plaque-id {
+  color: var(--warm-1);
+  letter-spacing: 0.2em;
+  display: block;
+  margin-bottom: 0.5rem;
+  font-size: 0.65rem;
+}
+
+/* Final room — narrow centered panel */
+.room-content--final {
+  width: min(90vw, 640px);
+  padding: 0;
+}

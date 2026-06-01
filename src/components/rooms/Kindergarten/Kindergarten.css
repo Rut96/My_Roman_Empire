@@ -1,0 +1,383 @@
+/* ── Override room-content when kindergarten is inside ──── */
+.room-content:has(.kinder-hall) {
+  background: #2C321B;
+  padding: 0;
+  width: min(94vw, 1100px);
+  max-height: 88vh;
+  overflow-y: auto;
+  box-shadow:
+    inset 0 0 0 1px rgba(212,160,96,0.18),
+    inset 0 0 0 9px #2C321B,
+    inset 0 0 0 10px rgba(212,160,96,0.1);
+  scrollbar-width: thin;
+  scrollbar-color: #C8922A transparent;
+}
+
+.room-content:has(.kinder-hall) .room-close {
+  background: rgba(44, 50, 27, 0.9);
+  border-color: rgba(212, 160, 96, 0.4);
+  color: #D4A060;
+  backdrop-filter: blur(4px);
+  z-index: 20;
+}
+
+.room-content:has(.kinder-hall) .room-close:hover {
+  background: rgba(212, 160, 96, 0.15);
+  border-color: #D4A060;
+}
+
+/* ── Hall wrapper ─────────────────────────────────────── */
+.kinder-hall {
+  --kh-bg:          #2C321B;
+  --kh-gold-hi:     #D4A060;
+  --kh-gold-lo:     #C8922A;
+  --kh-cream:       #E8DFD0;
+  --kh-muted:       #A89B8A;
+  --kh-frame-outer: #C8922A;
+  --kh-frame-inner: #8B6520;
+  --kh-paper:       #F0E5CC;
+  --kh-ink:         #1e2110;
+  --kh-ink-muted:   #4a4838;
+  --kh-ink-faint:   #7a7260;
+  --kh-tape:        rgba(220, 190, 130, 0.55);
+}
+
+/* ── Hall header ──────────────────────────────────────── */
+.kh-header {
+  padding: 52px 56px 36px;
+  text-align: center;
+  border-bottom: 1px solid rgba(212, 160, 96, 0.18);
+}
+
+.kh-num {
+  font-family: var(--font-mono);
+  font-size: 9.5px;
+  letter-spacing: 0.25em;
+  color: var(--kh-muted);
+  text-transform: uppercase;
+  margin-bottom: 12px;
+  display: block;
+}
+
+.kh-title {
+  font-family: var(--font-serif);
+  font-weight: 300;
+  font-size: clamp(30px, 4vw, 50px);
+  letter-spacing: 0.1em;
+  color: var(--kh-cream);
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+
+.kh-subtitle {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-weight: 300;
+  font-size: 14.5px;
+  color: var(--kh-muted);
+  letter-spacing: 0.04em;
+}
+
+.kh-ornament {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  margin: 16px auto 0;
+  color: rgba(200, 146, 42, 0.6);
+  font-size: 10px;
+  letter-spacing: 0.25em;
+}
+
+.kh-ornament::before,
+.kh-ornament::after {
+  content: '';
+  height: 1px;
+  width: 100px;
+  background: linear-gradient(90deg, transparent, var(--kh-gold-lo));
+}
+.kh-ornament::after { transform: scaleX(-1); }
+
+/* ── Exhibits container ───────────────────────────────── */
+.kh-exhibits { padding: 0 40px 16px; }
+
+/* ── Exhibit row ──────────────────────────────────────── */
+.kh-row {
+  display: grid;
+  grid-template-columns: 3fr 2fr;
+  gap: 40px;
+  padding: 44px 16px;
+  border-bottom: 1px solid rgba(212, 160, 96, 0.1);
+  align-items: center;
+}
+.kh-row:last-child { border-bottom: none; }
+
+.kh-row--rev { direction: rtl; }
+.kh-row--rev > * { direction: ltr; }
+
+/* ── Photo gallery grid ───────────────────────────────── */
+.kh-gallery {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: auto auto;
+  gap: 14px;
+}
+
+.kh-fw {
+  display: flex;
+  flex-direction: column;
+}
+
+.kh-fw--main { grid-column: 1; grid-row: 1 / 3; }
+.kh-fw--sub1 { grid-column: 2; grid-row: 1; }
+.kh-fw--sub2 { grid-column: 2; grid-row: 2; }
+
+.kh-gallery--two .kh-fw--main { grid-row: 1 / 2; }
+.kh-gallery--two .kh-fw--sub1 { grid-row: 1 / 2; }
+.kh-gallery--two .kh-fw--sub2 { display: none; }
+
+/* ── Photo frame ──────────────────────────────────────── */
+.kh-frame {
+  width: 100%;
+  aspect-ratio: 4 / 5;
+  border: 2.5px solid var(--kh-frame-outer);
+  padding: 5px;
+  background: #1a1e0e;
+  box-shadow:
+    inset 0 0 0 1px rgba(212, 160, 96, 0.2),
+    0 6px 28px rgba(0, 0, 0, 0.65),
+    0 2px 8px rgba(0, 0, 0, 0.4);
+  position: relative;
+  transition: box-shadow 0.35s ease;
+}
+
+.kh-fw--main .kh-frame { aspect-ratio: 3 / 4; }
+.kh-fw--sub1 .kh-frame,
+.kh-fw--sub2 .kh-frame { aspect-ratio: 1 / 1; }
+
+.kh-frame::before,
+.kh-frame::after {
+  content: '◆';
+  position: absolute;
+  font-size: 9px;
+  color: var(--kh-gold-lo);
+  line-height: 1;
+  opacity: 0.7;
+}
+.kh-frame::before { top: -6px; left: -6px; }
+.kh-frame::after  { bottom: -6px; right: -6px; }
+
+.kh-row:hover .kh-frame {
+  box-shadow:
+    0 0 0 1px rgba(212, 160, 96, 0.5),
+    0 0 24px rgba(212, 160, 96, 0.18),
+    0 8px 32px rgba(0, 0, 0, 0.7);
+}
+
+/* ── Frame inner liner ────────────────────────────────── */
+.kh-fi {
+  width: 100%;
+  height: 100%;
+  border: 1.5px solid var(--kh-frame-inner);
+  outline: 1px solid rgba(212, 160, 96, 0.25);
+  outline-offset: -4px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.kh-fi img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* ── Frame caption ────────────────────────────────────── */
+.kh-fc {
+  font-family: var(--font-mono);
+  font-size: 8px;
+  letter-spacing: 0.14em;
+  color: rgba(168, 155, 138, 0.4);
+  text-transform: uppercase;
+  text-align: center;
+  margin-top: 6px;
+}
+
+/* ── Placard mount with tape strips ──────────────────── */
+.kh-pm {
+  position: relative;
+  padding-top: 18px;
+  transform: rotate(0.4deg);
+  transition: transform 0.3s ease;
+}
+
+.kh-row:hover .kh-pm {
+  transform: rotate(0deg) translateY(-2px);
+}
+
+.kh-pm::before,
+.kh-pm::after {
+  content: '';
+  position: absolute;
+  top: 2px;
+  width: 52px;
+  height: 18px;
+  background: var(--kh-tape);
+  background-image: repeating-linear-gradient(
+    transparent,
+    transparent 2px,
+    rgba(180, 150, 90, 0.08) 2px,
+    rgba(180, 150, 90, 0.08) 3px
+  );
+  border-radius: 1px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+}
+.kh-pm::before { left: 16px; transform: rotate(-2deg); }
+.kh-pm::after  { right: 16px; transform: rotate(2.5deg); }
+
+/* ── Placard paper ────────────────────────────────────── */
+.kh-pp {
+  background: var(--kh-paper);
+  padding: 24px 22px 22px;
+  box-shadow:
+    0 2px 4px rgba(0, 0, 0, 0.15),
+    0 8px 24px rgba(0, 0, 0, 0.35),
+    0 20px 48px rgba(0, 0, 0, 0.2);
+  position: relative;
+  background-image: linear-gradient(
+    175deg,
+    rgba(255, 255, 255, 0.12) 0%,
+    transparent 40%,
+    rgba(0, 0, 0, 0.04) 100%
+  );
+}
+
+.kh-pp::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: repeating-linear-gradient(
+    transparent,
+    transparent 23px,
+    rgba(160, 140, 100, 0.08) 23px,
+    rgba(160, 140, 100, 0.08) 24px
+  );
+  pointer-events: none;
+}
+
+/* ── Placard typography ───────────────────────────────── */
+.kh-pid {
+  font-family: var(--font-mono);
+  font-size: 8px;
+  letter-spacing: 0.2em;
+  color: var(--kh-ink-faint);
+  text-transform: uppercase;
+  display: block;
+  margin-bottom: 10px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.kh-ptitle {
+  font-family: var(--font-serif);
+  font-weight: 400;
+  font-style: italic;
+  font-size: 22px;
+  color: var(--kh-ink);
+  line-height: 1.2;
+  margin-bottom: 5px;
+  letter-spacing: 0.01em;
+}
+
+.kh-pattr {
+  font-family: var(--font-serif);
+  font-weight: 300;
+  font-size: 12px;
+  color: var(--kh-ink-muted);
+  letter-spacing: 0.03em;
+  margin-bottom: 4px;
+}
+
+.kh-pmed {
+  font-family: var(--font-mono);
+  font-size: 7.5px;
+  letter-spacing: 0.14em;
+  color: var(--kh-ink-faint);
+  text-transform: uppercase;
+  margin-bottom: 14px;
+}
+
+.kh-prule {
+  display: block;
+  height: 1px;
+  background: linear-gradient(90deg, var(--kh-gold-lo), rgba(200, 146, 42, 0.2));
+  margin-bottom: 12px;
+}
+
+.kh-pdesc {
+  font-family: var(--font-serif);
+  font-weight: 300;
+  font-size: 14px;
+  color: var(--kh-ink-muted);
+  line-height: 1.65;
+  margin-bottom: 14px;
+}
+
+.kh-pacc {
+  font-family: var(--font-mono);
+  font-size: 7px;
+  letter-spacing: 0.16em;
+  color: rgba(74, 72, 56, 0.45);
+  text-transform: uppercase;
+  display: flex;
+  justify-content: space-between;
+  border-top: 1px solid rgba(0, 0, 0, 0.08);
+  padding-top: 8px;
+}
+
+/* ── Quote footer ─────────────────────────────────────── */
+.kh-quote {
+  padding: 8px 56px 52px;
+  text-align: center;
+  border-top: 1px solid rgba(212, 160, 96, 0.12);
+}
+
+.kh-qdeco {
+  color: var(--kh-gold-lo);
+  font-size: 44px;
+  font-family: var(--font-serif);
+  line-height: 0.6;
+  opacity: 0.3;
+  margin-bottom: 10px;
+  display: block;
+}
+
+.kh-qtext {
+  font-family: var(--font-hand);
+  font-size: clamp(16px, 2vw, 21px);
+  color: var(--kh-muted);
+  transform: rotate(-1.2deg);
+  display: inline-block;
+  line-height: 1.65;
+  max-width: 540px;
+}
+
+.kh-qtext em {
+  color: var(--kh-cream);
+  font-style: normal;
+}
+
+/* ── Responsive ───────────────────────────────────────── */
+@media (max-width: 720px) {
+  .kh-row {
+    grid-template-columns: 1fr;
+    direction: ltr;
+    gap: 28px;
+    padding: 36px 12px;
+  }
+  .kh-header { padding: 40px 28px 32px; }
+  .kh-exhibits { padding: 0 20px 12px; }
+  .kh-quote { padding: 8px 28px 40px; }
+}

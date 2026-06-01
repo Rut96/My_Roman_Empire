@@ -1,0 +1,117 @@
+.museum-intro {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background: #0a0806;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+/* ── Two full-screen door panels ─────────────────────────── */
+
+.museum-intro-doors {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.museum-intro-door {
+  flex: 1;
+  height: 100%;
+  position: relative;
+  will-change: transform;
+  overflow: hidden;
+  background: #0f0c07;
+}
+
+.museum-intro-door--left {
+  transform-origin: left center;
+}
+
+.museum-intro-door--right {
+  transform-origin: right center;
+}
+
+/* Thin gold seam between the two doors */
+.museum-intro-door--left::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 2px;
+  height: 100%;
+  background: linear-gradient(to bottom, transparent, #c9a55a 10%, #e8c97a 50%, #c9a55a 90%, transparent);
+  z-index: 1;
+}
+
+.museum-intro-door-img {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  transform: translateY(-50%);
+  width: 100%;
+  height: auto;
+  display: block;
+  user-select: none;
+  pointer-events: none;
+}
+
+/* ── Enter button / video container ─────────────────────── */
+
+.museum-intro-enter {
+  position: relative;
+  z-index: 10;
+  width: 260px;
+  height: 72px;
+  overflow: hidden;
+  border: 1px solid #c9a55a;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  background: rgba(18, 12, 4, 0.72);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  transition: box-shadow 0.3s ease, background 0.3s ease;
+}
+
+.museum-intro-enter:hover {
+  background: rgba(26, 18, 6, 0.88);
+  box-shadow: 0 0 36px rgba(201, 165, 90, 0.2);
+}
+
+.museum-intro-enter--open {
+  cursor: default;
+  border-color: transparent;
+}
+
+.museum-intro-enter-label {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(16px, 2.5vw, 26px);
+  font-weight: 300;
+  letter-spacing: 0.35em;
+  color: #c9a55a;
+  text-transform: uppercase;
+  pointer-events: none;
+  white-space: nowrap;
+  user-select: none;
+}
+
+/* ── Video fills the enter container once expanded ───────── */
+
+.museum-intro-video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  will-change: transform;
+  transform-origin: center center;
+  transition: opacity 0.3s ease;
+}

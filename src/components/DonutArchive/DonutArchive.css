@@ -1,0 +1,69 @@
+.donut-archive-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 3000;
+  background: rgba(0,0,0,0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: fade-in 0.3s ease;
+}
+
+.donut-archive {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 32px;
+  max-width: 560px;
+  width: 90vw;
+  position: relative;
+  max-height: 80vh;
+  overflow-y: auto;
+}
+
+.donut-archive-close {
+  position: absolute;
+  top: 12px;
+  right: 16px;
+  background: none;
+  border: none;
+  color: var(--text-muted);
+  font-size: 18px;
+  font-family: var(--font-mono);
+  cursor: pointer;
+}
+
+.donut-archive-title {
+  font-family: var(--font-serif);
+  font-size: 24px;
+  color: var(--text-primary);
+  margin: 0 0 4px;
+}
+
+.donut-archive-subtitle {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--text-muted);
+  margin: 0 0 20px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+.donut-archive-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+  gap: 12px;
+}
+
+.donut-archive-cell img {
+  width: 100%;
+  aspect-ratio: 1;
+  object-fit: cover;
+  border-radius: 4px;
+  border: 1px solid var(--border);
+}
+
+@keyframes fade-in {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}

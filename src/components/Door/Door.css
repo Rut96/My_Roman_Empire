@@ -1,0 +1,65 @@
+.door-wrapper {
+  position: absolute;
+  z-index: 25;
+  cursor: none;
+  width: 12vh;
+}
+
+.door-wrapper:hover {
+  filter: brightness(1.15) drop-shadow(0 0 20px rgba(201, 165, 123, 0.4));
+}
+
+.door-sashes {
+  position: relative;
+  display: flex;
+  width: 100%;
+}
+
+.door-half {
+  width: 50%;
+  overflow: hidden;
+  transition: transform 0.75s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.door-left img {
+  display: block;
+  width: 200%;
+  height: auto;
+  object-fit: cover;
+  object-position: left;
+}
+
+.door-right img {
+  display: block;
+  width: 200%;
+  height: auto;
+  object-fit: cover;
+  object-position: right;
+  margin-left: -100%;
+}
+
+/* Open state — Phase 3 will toggle this class */
+.door-open .door-left  { transform: perspective(1200px) rotateY(-115deg); }
+.door-open .door-right { transform: perspective(1200px) rotateY( 115deg); }
+
+.door-arch {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  pointer-events: none;
+  z-index: 2;
+}
+
+.door-wrapper--gallery {
+  position: relative;
+  width: 100%;
+  background: transparent;
+  overflow: hidden;
+}
+
+.door-wrapper--gallery .door-sashes {
+  transform: scale(0.95);
+  transform-origin: bottom center;
+}
+

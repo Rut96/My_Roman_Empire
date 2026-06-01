@@ -1,0 +1,42 @@
+.door-tooltip {
+  position: fixed;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+  z-index: 999;
+  opacity: 0;
+  scale: 0.88;
+  transform-origin: left bottom;
+  rotate: -0.6deg;
+
+  font-family: var(--font-serif);
+  font-size: 0.88rem;
+  color: #d4aa58;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  white-space: nowrap;
+
+  background: linear-gradient(160deg, #1c0f07 0%, #2c1a0c 55%, #201008 100%);
+  padding: 11px 22px 12px;
+  border: 1px solid rgba(212, 170, 88, 0.6);
+  box-shadow:
+    0 0 0 4px rgba(212, 170, 88, 0.1),
+    0 10px 32px rgba(0, 0, 0, 0.55),
+    inset 0 1px 0 rgba(255, 220, 120, 0.08);
+}
+
+/* Inner decorative border */
+.door-tooltip::before {
+  content: '';
+  position: absolute;
+  inset: 5px;
+  border: 1px solid rgba(212, 170, 88, 0.25);
+  pointer-events: none;
+}
+
+.door-tooltip__orn {
+  font-size: 0.55em;
+  vertical-align: middle;
+  opacity: 0.7;
+  margin: 0 0.6em;
+}

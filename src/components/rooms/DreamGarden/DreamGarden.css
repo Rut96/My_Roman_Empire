@@ -1,0 +1,306 @@
+/* ===== Корневой контейнер ===== */
+.dream-garden {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+/* ===== Фоновое фото сада ===== */
+.dg-bg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center center;
+  z-index: 0;
+  pointer-events: none;
+  user-select: none;
+}
+
+/* Тёмный градиентный оверлей */
+.dg-scrim {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: linear-gradient(
+    to bottom,
+    rgba(10, 7, 5, 0.45) 0%,
+    rgba(10, 7, 5, 0.15) 40%,
+    rgba(10, 7, 5, 0.15) 70%,
+    rgba(10, 7, 5, 0.50) 100%
+  );
+  pointer-events: none;
+}
+
+/* ===== Шапка — левый край, не перекрывает дерево ===== */
+.dg-header {
+  position: absolute;
+  left: 1.5rem;
+  top: 50%;
+  transform: translateY(-50%);
+  text-align: left;
+  z-index: 6;
+  pointer-events: none;
+  max-width: 110px;
+}
+
+.dg-header-sub {
+  font-family: var(--font-mono);
+  font-size: 8px;
+  letter-spacing: 0.14em;
+  color: rgba(242, 235, 224, 0.45);
+  text-transform: uppercase;
+  margin-bottom: 0.3rem;
+  line-height: 1.4;
+}
+
+.dg-header-title {
+  font-family: var(--font-serif);
+  font-size: clamp(15px, 1.8vw, 22px);
+  font-weight: 300;
+  color: var(--text-primary);
+  font-style: italic;
+  text-shadow: 0 1px 10px rgba(0, 0, 0, 0.9), 0 0 30px rgba(0,0,0,0.6);
+  margin: 0;
+  line-height: 1.2;
+}
+
+.dg-header-hint {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  color: rgba(168, 155, 138, 0.70);
+  margin: 0.4rem 0 0;
+  letter-spacing: 0.04em;
+  line-height: 1.5;
+}
+
+/* ===== Светлячки ===== */
+.dg-firefly {
+  position: absolute;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--highlight);
+  opacity: 0;
+  pointer-events: none;
+  z-index: 8;
+  box-shadow: 0 0 8px var(--highlight), 0 0 22px rgba(242, 197, 124, 0.5);
+}
+
+/* ===== Зона дерева — центрируется на поляне фонового фото ===== */
+/* Соотношение сторон 5:6 совпадает с пропорциями иллюстрации дерева */
+.dg-tree-zone {
+  position: absolute;
+  top: 1.5rem;
+  bottom: 1rem;
+  left: 50%;
+  transform: translateX(-50%);
+  aspect-ratio: 5 / 6;
+  max-height: calc(100% - 2.5rem);
+  max-width: 76%;
+  z-index: 3;
+}
+
+/* ===== Дерево внутри зоны — screen blend убирает чёрный фон ===== */
+.dg-tree {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: fill; /* zone уже правильного соотношения — fill без искажения */
+  mix-blend-mode: screen;
+  pointer-events: none;
+  user-select: none;
+  will-change: transform;
+}
+
+/* Финальное свечение */
+.dg-glow {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: radial-gradient(ellipse 60% 55% at 50% 52%, rgba(210, 168, 80, 0.30) 0%, transparent 68%);
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* ===== Область горшков (в пределах tree-zone) ===== */
+.dg-pots-area {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+}
+
+/* ===== Слот горшка ===== */
+.dg-pot-slot {
+  position: absolute;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  cursor: pointer;
+  user-select: none;
+  transition: transform 0.15s ease;
+}
+
+/* Доступный для полива — лёгкое свечение на горшке */
+.dg-pot-slot--targetable .dg-pot-img {
+  filter: drop-shadow(0 3px 10px rgba(0,0,0,0.4)) drop-shadow(0 0 6px rgba(107,142,78,0.35));
+}
+
+/* Горшок под лейкой */
+.dg-pot-slot--hovered .dg-pot-img {
+  filter: drop-shadow(0 3px 10px rgba(0,0,0,0.4)) drop-shadow(0 0 18px rgba(107,142,78,1.0));
+}
+
+.dg-pot-slot--hovered {
+  transform: translateX(-50%) scale(1.08);
+}
+
+/* ===== Растение ===== */
+.dg-plant-wrap {
+  display: flex;
+  justify-content: center;
+  margin-bottom: -20px;
+  /* Stay above the halo which is later in DOM */
+  position: relative;
+  z-index: 2;
+}
+
+.dg-plant {
+  display: block;
+  width: 72px;
+  height: 88px;
+  object-fit: contain;
+  object-position: bottom center;
+  transform-origin: bottom center;
+  opacity: 0;
+  transform: scaleY(0);
+  /* White halo lifts plants off the light bg; dark shadow adds depth */
+  filter:
+    drop-shadow(0 0 3px rgba(255, 255, 255, 1.0))
+    drop-shadow(0 0 10px rgba(255, 255, 255, 0.7))
+    drop-shadow(0 4px 12px rgba(0, 0, 0, 0.7));
+  user-select: none;
+}
+
+.dg-pot-slot--special .dg-plant {
+  width: 92px;
+  height: 108px;
+}
+
+/* ===== Горшок ===== */
+.dg-pot-img {
+  display: block;
+  width: 64px;
+  object-fit: contain;
+  filter: drop-shadow(0 3px 10px rgba(0, 0, 0, 0.40));
+  user-select: none;
+  transition: filter 0.2s ease;
+}
+
+.dg-pot-slot--special .dg-pot-img {
+  width: 80px;
+}
+
+/* ===== Лепестки сакуры ===== */
+.dg-petals {
+  position: absolute;
+  bottom: 60px;
+  left: 50%;
+  transform: translateX(-50%);
+  pointer-events: none;
+  overflow: visible;
+  z-index: 3;
+}
+
+/* ===== Ореол горшка №9 ===== */
+.dg-halo {
+  position: absolute;
+  bottom: 42px;
+  left: 50%;
+  transform: translateX(-50%) scale(0);
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  opacity: 0;
+  pointer-events: none;
+  background: radial-gradient(circle, rgba(210, 168, 80, 0.18) 0%, transparent 70%);
+  box-shadow:
+    0 -48px 0 2px rgba(210, 168, 80, 0.45),
+    34px -34px 0 2px rgba(210, 168, 80, 0.35),
+    48px 0 0 2px rgba(210, 168, 80, 0.35),
+    34px 34px 0 2px rgba(210, 168, 80, 0.25),
+    0 48px 0 2px rgba(210, 168, 80, 0.25),
+    -34px 34px 0 2px rgba(210, 168, 80, 0.25),
+    -48px 0 0 2px rgba(210, 168, 80, 0.35),
+    -34px -34px 0 2px rgba(210, 168, 80, 0.35);
+}
+
+/* ===== Лейка ===== */
+.dg-watering-can {
+  position: absolute;
+  bottom: 1.5rem;
+  right: 1.5rem;
+  z-index: 9;
+  cursor: pointer;
+  user-select: none;
+  filter: drop-shadow(0 2px 8px rgba(0,0,0,0.5));
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.dg-watering-can--held {
+  filter: drop-shadow(0 4px 16px rgba(107, 142, 78, 0.5));
+  pointer-events: none;
+}
+
+.dg-can-img {
+  display: block;
+  width: 100px;
+  object-fit: contain;
+  user-select: none;
+}
+
+.dg-can-hint {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: 0.08em;
+  color: rgba(168, 155, 138, 0.75);
+  white-space: nowrap;
+  pointer-events: none;
+}
+
+.dg-drops {
+  position: absolute;
+  top: 20px;
+  right: -10px;
+  pointer-events: none;
+  overflow: visible;
+}
+
+/* ===== Финальная плашка ===== */
+.dg-banner {
+  position: absolute;
+  bottom: 2rem;
+  left: 50%;
+  background: rgba(31, 26, 23, 0.88);
+  backdrop-filter: blur(10px);
+  border: 1px solid var(--warm-1);
+  border-radius: 4px;
+  padding: 1.5rem 2rem;
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: 18px;
+  color: var(--text-primary);
+  line-height: 1.7;
+  text-align: center;
+  white-space: nowrap;
+  z-index: 9;
+  pointer-events: none;
+  opacity: 0;
+}

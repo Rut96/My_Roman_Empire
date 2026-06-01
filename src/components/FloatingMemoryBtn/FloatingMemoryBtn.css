@@ -1,0 +1,22 @@
+.floating-memory-btn {
+  position: fixed;
+  bottom: 28px;
+  right: 28px;
+  z-index: 1000;
+  background: rgba(10, 14, 6, 0.85);
+  backdrop-filter: blur(16px);
+  border: 1px solid rgba(212, 160, 96, 0.3);
+  color: var(--text-muted);
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  padding: 10px 18px;
+  transition: border-color 0.25s, color 0.25s, box-shadow 0.25s;
+}
+
+.floating-memory-btn:hover {
+  border-color: var(--warm-2);
+  color: var(--warm-2);
+  box-shadow: 0 0 20px rgba(212, 160, 96, 0.15);
+}

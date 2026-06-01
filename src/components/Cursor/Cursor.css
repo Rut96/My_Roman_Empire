@@ -1,0 +1,55 @@
+.cursor-root {
+  position: fixed;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+  z-index: 10000;
+  will-change: transform;
+  transition: opacity 0.15s ease;
+}
+
+body[data-cursor-hidden] .cursor-root {
+  opacity: 0;
+}
+
+.cursor-face {
+  width: 96px;
+  height: 96px;
+  border-radius: 50%;
+  object-fit: contain;
+  transform: translate(-50%, -50%);
+  user-select: none;
+  pointer-events: none;
+  filter: drop-shadow(0 2px 8px rgba(0,0,0,0.6));
+}
+
+.cursor-bored-label {
+  position: absolute;
+  top: 0;
+  left: 56px;
+  transform: translateY(-50%);
+  white-space: nowrap;
+  font-family: var(--font-hand);
+  font-size: 20px;
+  color: var(--text-secondary);
+  pointer-events: none;
+}
+
+.cursor-sparkles {
+  position: absolute;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+}
+
+.sparkle {
+  position: absolute;
+  font-size: 14px;
+  animation: orbit 1.2s linear infinite;
+  animation-delay: calc(var(--i) * -0.2s);
+}
+
+@keyframes orbit {
+  0%   { transform: translate(-50%, -50%) rotate(calc(var(--i) * 60deg))          translateX(32px); }
+  100% { transform: translate(-50%, -50%) rotate(calc(var(--i) * 60deg + 360deg)) translateX(32px); }
+}

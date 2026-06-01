@@ -1,0 +1,71 @@
+:root {
+  --bg-deep:    #2C321B;
+  --bg-room:    #0E110A;
+  --bg-card:    #1E241A;
+  --border:     #3D4A32;
+
+  --text-primary:   #E8DFD0;
+  --text-secondary: #A89880;
+  --text-muted:     #6E6055;
+
+  --warm-1:    #B8894A;
+  --warm-2:    #D4A060;
+  --warm-3:    #C05E28;
+  --highlight: #C8922A;
+  --plant:     #4E6E32;
+  --berserk:   #6B0F0F;
+
+  --font-serif: 'Cormorant Garamond', serif;
+  --font-sans:  'Inter', sans-serif;
+  --font-mono:  'JetBrains Mono', monospace;
+  --font-hand:  'Caveat', cursive;
+}
+
+body.dark-mode {
+  --bg-deep:       #050303;
+  --warm-1:        #8B1A1A;
+  --warm-2:        #A02020;
+  --highlight:     #CC2222;
+  --text-primary:  #D4C0B0;
+}
+
+*, *::before, *::after {
+  cursor: none !important;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background: var(--bg-deep);
+  color: var(--text-primary);
+  font-family: var(--font-sans);
+  overflow-x: hidden;
+  scrollbar-gutter: stable;
+}
+
+/* Зернистость */
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.035;
+  z-index: 9999;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 200px 200px;
+}
+
+.konami-hint {
+  position: fixed;
+  bottom: 8px;
+  right: 12px;
+  font-family: var(--font-mono);
+  font-size: 9px;
+  color: var(--text-muted);
+  opacity: 0.15;
+  pointer-events: none;
+  z-index: 500;
+  letter-spacing: 0.05em;
+}
+
