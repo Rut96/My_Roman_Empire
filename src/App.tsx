@@ -19,7 +19,7 @@ export default function App() {
   useCursorReactions()
 
   return (
-    <BrowserRouter basename="/Anya_Roman_Empire/">
+    <BrowserRouter basename="/My_Roman_Empire/">
       {!introComplete && <MuseumIntro onComplete={() => setIntroComplete(true)} />}
       <Cursor />
       <Navbar />
